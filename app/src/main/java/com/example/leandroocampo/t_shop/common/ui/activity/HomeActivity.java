@@ -1,4 +1,4 @@
-package com.example.leandroocampo.t_shop;
+package com.example.leandroocampo.t_shop.common.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,12 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.leandroocampo.t_shop.R;
+
 public class HomeActivity extends AppCompatActivity {
 
   private TextView mTextMessage;
 
   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-      = new BottomNavigationView.OnNavigationItemSelectedListener() {
+          = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
