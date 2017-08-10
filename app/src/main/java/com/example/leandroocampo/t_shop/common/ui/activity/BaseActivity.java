@@ -10,7 +10,7 @@ import com.example.leandroocampo.t_shop.common.presenter.factory.PresenterFactor
 import com.example.leandroocampo.t_shop.common.provider.IntentExtrasProvider;
 import com.example.leandroocampo.t_shop.common.provider.ParamsProvider;
 
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<P extends BasePresenter<V>,V> extends AppCompatActivity {
 
     //Presenter attached to Activity
     protected P presenter;
@@ -21,7 +21,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         initInject();
         presenter = getPresenterFactory().create(new IntentExtrasProvider(savedInstanceState, getIntent()));
         //noinspection unchecked
-        presenter.onViewCreated(this);
+        presenter.onViewCreated(getMVPView());
     }
 
     @Override
@@ -42,6 +42,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         presenter.onStart();
     }
 
+    /**
+     * Return the view that will be attached to the {@link BasePresenter}
+     * @return A view interface
+     */
+    @NonNull
+    protected abstract V getMVPView();
+
+    /**
+     * Return a factory of a specific {@link BasePresenter}
+     * @return an implementation of {@link PresenterFactory}
+     */
     @NonNull
     protected abstract PresenterFactory<P> getPresenterFactory();
 
@@ -49,4 +60,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
      * Initialize dependency injection in the component
      */
     protected abstract void initInject();
+
+    public P getPresenter() {
+        return presenter;
+    }
 }

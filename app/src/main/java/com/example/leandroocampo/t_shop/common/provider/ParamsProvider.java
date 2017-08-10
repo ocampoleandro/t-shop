@@ -28,7 +28,7 @@ public class ParamsProvider {
     public String getString(String key) {
         Bundle bundle = getBundle();
         if (bundle != null) {
-            return getBundle().getString(key);
+            return bundle.getString(key);
         } else {
             return null;
         }
@@ -46,4 +46,7 @@ public class ParamsProvider {
         return savedInstanceState;
     }
 
+    public Bundle getSavedInstanceState() {
+        return savedInstanceState;
+    }
 }

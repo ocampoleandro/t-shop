@@ -7,8 +7,8 @@ public abstract class BasePresenter<T> {
     //Activity or Fragment attached to Presenter
     protected T view;
 
-    BasePresenter() {
-        initInject();
+    protected BasePresenter(boolean inject) {
+        if(inject) initInject();
     }
 
     public void onViewCreated(T view) {
@@ -16,6 +16,18 @@ public abstract class BasePresenter<T> {
     }
 
     public void onStart() {
+
+    }
+
+    public void onResume() {
+
+    }
+
+    public void onPause() {
+
+    }
+
+    public void onStop(){
 
     }
 
@@ -32,4 +44,7 @@ public abstract class BasePresenter<T> {
 
     }
 
+    public T getView() {
+        return view;
+    }
 }

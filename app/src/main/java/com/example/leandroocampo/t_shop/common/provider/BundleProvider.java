@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 public class BundleProvider extends ParamsProvider {
 
+    //bundle to save or fetch information as parameters
     private Bundle params;
 
     public BundleProvider(Bundle savedInstanceState, Bundle params) {
@@ -22,4 +23,7 @@ public class BundleProvider extends ParamsProvider {
         return (savedInstanceState != null) ? savedInstanceState : params;
     }
 
+    public Bundle getParams() {
+        return params;
+    }
 }

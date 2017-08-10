@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 public class IntentExtrasProvider extends ParamsProvider {
 
+    //Intent to save or fetch information as extras
     private Intent intent;
 
     public IntentExtrasProvider(Bundle savedInstanceState, Intent intent) {
@@ -21,4 +22,7 @@ public class IntentExtrasProvider extends ParamsProvider {
         return (savedInstanceState != null) ? savedInstanceState : intent.getExtras();
     }
 
+    public Intent getIntent() {
+        return intent;
+    }
 }

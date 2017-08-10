@@ -1,7 +1,12 @@
 <resources>
-  <string name="app_name">T-Shop</string>
+    <string name="app_name">T-Shop</string>
 
-  <string name="nav_title_shop">Shop</string>
-  <string name="nav_title_cart">Cart</string>
-  <string name="nav_title_profile">Profile</string>
+    <string name="nav_title_shop">Shop</string>
+    <string name="nav_title_cart">Cart</string>
+    <string name="nav_title_profile">Profile</string>
+
+    <!-- ListShirtsFragment -->
+    <string name="list_shirt_error_fetching_shirts">Error fetching shirts</string>
+    <string name="list_shirt_product_price">$%1$d</string>
+    <!-- END ListShirtsFragment -->
 </resources>

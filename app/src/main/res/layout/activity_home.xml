@@ -1,48 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  android:id="@+id/container"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  tools:context="com.example.leandroocampo.t_shop.common.ui.activity.HomeActivity">
-
-  <android.support.design.widget.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
-    <include layout="@layout/toolbar_normal" />
-
-  </android.support.design.widget.AppBarLayout>
-
-  <FrameLayout
-      android:id="@+id/content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-      android:layout_weight="1">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.leandroocampo.t_shop.common.ui.activity.HomeActivity">
 
-    <TextView
-        android:id="@+id/message"
+    <!-- Used to give flexibility in the design of each screen such as custom toolbar -->
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/nav_title_shop" />
+        android:fitsSystemWindows="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/navigation"/>
 
-  </FrameLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        app:itemIconTint="@drawable/navigation_state_colors"
+        app:itemTextColor="@drawable/navigation_state_colors"
+        app:menu="@menu/navigation" />
 
-  <android.support.design.widget.BottomNavigationView
-    android:id="@+id/navigation"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:background="@android:color/white"
-    app:itemIconTint="@drawable/navigation_state_colors"
-    app:itemTextColor="@drawable/navigation_state_colors"
-    app:menu="@menu/navigation"/>
-
-</LinearLayout>
+</RelativeLayout>

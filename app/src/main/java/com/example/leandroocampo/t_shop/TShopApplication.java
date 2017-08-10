@@ -4,9 +4,13 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.leandroocampo.t_shop.configuration.DependencyInjector;
+import com.example.leandroocampo.t_shop.configuration.Injector;
+
 public class TShopApplication extends Application {
 
     private static TShopApplication instance;
+    protected Injector injector;
 
     public static TShopApplication getInstance() {
         return instance;
@@ -16,6 +20,11 @@ public class TShopApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initializeInjector();
+    }
+
+    protected void initializeInjector() {
+        injector = DependencyInjector.getInstance();
     }
 
     /**
@@ -25,5 +34,9 @@ public class TShopApplication extends Application {
      */
     public SharedPreferences getSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    public Injector getInjector() {
+        return injector;
     }
 }
