@@ -61,8 +61,8 @@ public class ListShirtFragmentTest {
     }
 
     @Test
-    public void onStart_shouldHaveTitle(){
-        String title = ((AppCompatActivity)subject.getActivity()).getSupportActionBar().getTitle().toString();
+    public void onStart_shouldHaveTitle() {
+        String title = ((AppCompatActivity) subject.getActivity()).getSupportActionBar().getTitle().toString();
         assertThat(title).isEqualTo("T-Shop");
     }
 
@@ -103,8 +103,20 @@ public class ListShirtFragmentTest {
     }
 
     @Test
-    public void onShowErrorFetchingList_ToastShouldBeShown(){
+    public void onShowErrorFetchingList_ToastShouldBeShown() {
         subject.showErrorFetchingList();
         assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("Error fetching shirts");
+    }
+
+    @Test
+    public void openShirtDetailScreen_shouldUpdateFragment() {
+        Shirt shirt = new Shirt();
+        shirt.setName("name");
+        shirt.setPrice(20);
+        shirt.setColour("blue");
+        shirt.setSize("m");
+        subject.openShirtDetailScreen(shirt);
+        assertThat(((GeneralActivity) subject.getContext())
+                .fragmentUpdated).isInstanceOf(DetailShirtFragment.class);
     }
 }

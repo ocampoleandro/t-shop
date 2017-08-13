@@ -112,4 +112,14 @@ public class ListShirtPresenterTest {
         subject.onNoInternetConnection();
         verify(listShirtView).showErrorFetchingList();
     }
+
+    @Test
+    public void onItemClicked_openShirtDetailScreenShouldBeCalled() {
+        Shirt shirt = new Shirt();
+        ListShirtView listShirtView = Mockito.mock(ListShirtView.class);
+        subject.onViewCreated(listShirtView);
+
+        subject.onItemClicked(shirt);
+        verify(listShirtView).openShirtDetailScreen(eq(shirt));
+    }
 }

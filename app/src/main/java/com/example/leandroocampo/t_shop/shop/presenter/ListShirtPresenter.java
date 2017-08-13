@@ -6,13 +6,14 @@ import com.example.leandroocampo.t_shop.common.dao.callback.ListCallback;
 import com.example.leandroocampo.t_shop.common.model.Shirt;
 import com.example.leandroocampo.t_shop.common.presenter.BasePresenter;
 import com.example.leandroocampo.t_shop.configuration.DependencyInjector;
+import com.example.leandroocampo.t_shop.shop.ui.adapter.ShirtListAdapter;
 import com.example.leandroocampo.t_shop.shop.view.ListShirtView;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class ListShirtPresenter extends BasePresenter<ListShirtView> implements ListCallback<Shirt> {
+public class ListShirtPresenter extends BasePresenter<ListShirtView> implements ListCallback<Shirt>, ShirtListAdapter.InteractionListener {
 
     @Inject
     ShirtDAO shirtDAO;
@@ -61,5 +62,10 @@ public class ListShirtPresenter extends BasePresenter<ListShirtView> implements 
 
     RequestData getRequestData() {
         return requestData;
+    }
+
+    @Override
+    public void onItemClicked(Shirt shirt) {
+        view.openShirtDetailScreen(shirt);
     }
 }

@@ -15,6 +15,7 @@ import com.example.leandroocampo.t_shop.R;
 import com.example.leandroocampo.t_shop.TShopApplication;
 import com.example.leandroocampo.t_shop.common.model.Shirt;
 import com.example.leandroocampo.t_shop.common.presenter.factory.PresenterFactory;
+import com.example.leandroocampo.t_shop.common.ui.FragmentChangeable;
 import com.example.leandroocampo.t_shop.common.ui.TitleChangeable;
 import com.example.leandroocampo.t_shop.common.ui.ToolbarChangeable;
 import com.example.leandroocampo.t_shop.common.ui.fragment.BaseFragment;
@@ -28,10 +29,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Fragment that shows a list of shirts. Each item of the list takes you to a detail screen.
+ * Fragment that shows a list of shirts. Each item of the list takes you to {@link DetailShirtFragment}.
  */
 
-public class ListShirtFragment extends BaseFragment<ListShirtPresenter,ListShirtView> implements ListShirtView {
+public class ListShirtFragment extends BaseFragment<ListShirtPresenter, ListShirtView> implements ListShirtView {
 
     @Inject
     ListShirtPresenterFactory presenterFactory;
@@ -46,6 +47,7 @@ public class ListShirtFragment extends BaseFragment<ListShirtPresenter,ListShirt
 
     /**
      * Default method to create instances of {@link ListShirtFragment}
+     *
      * @return an instance of {@link ListShirtFragment}
      */
     public static ListShirtFragment newInstance() {
@@ -65,7 +67,7 @@ public class ListShirtFragment extends BaseFragment<ListShirtPresenter,ListShirt
 
         rvShirts = (RecyclerView) view.findViewById(R.id.rv_shirts);
         rvShirts.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rvShirts.setLayoutManager(gridLayoutManager);
 
         progressBar = view.findViewById(R.id.progress);
@@ -105,14 +107,20 @@ public class ListShirtFragment extends BaseFragment<ListShirtPresenter,ListShirt
 
     @Override
     public void showShirts(List<Shirt> shirts) {
-        rvShirts.setAdapter(new ShirtListAdapter(shirts,getContext()));
+        rvShirts.setAdapter(new ShirtListAdapter(shirts, getContext(), presenter));
         progressBar.setVisibility(View.INVISIBLE);
         rvShirts.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showErrorFetchingList() {
-        Toast.makeText(getContext(),getContext().getString(R.string.list_shirt_error_fetching_shirts)
-                ,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getString(R.string.list_shirt_error_fetching_shirts)
+                , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void openShirtDetailScreen(Shirt shirt) {
+        DetailShirtFragment fragment = DetailShirtFragment.newInstance(shirt);
+        ((FragmentChangeable) getActivity()).updateMainFragment(fragment);
     }
 }

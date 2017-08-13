@@ -20,11 +20,13 @@ public class ShirtListAdapter extends RecyclerView.Adapter<ShirtListAdapter.Shir
 
     private List<Shirt> shirts;
     private int imageSize;
+    private InteractionListener listener;
 
-    public ShirtListAdapter(List<Shirt> shirts, Context context) {
+    public ShirtListAdapter(List<Shirt> shirts, Context context, InteractionListener listener) {
         this.shirts = shirts;
         this.context = context;
         imageSize = context.getResources().getDimensionPixelSize(R.dimen.list_shirt_product_image_height);
+        this.listener = listener;
     }
 
     @Override
@@ -35,11 +37,17 @@ public class ShirtListAdapter extends RecyclerView.Adapter<ShirtListAdapter.Shir
 
     @Override
     public void onBindViewHolder(ShirtViewHolder holder, int position) {
-        Shirt shirt = shirts.get(position);
+        final Shirt shirt = shirts.get(position);
         holder.tvProductName.setText(shirt.getName());
         holder.tvProductPrice.setText(context.getString(R.string.list_shirt_product_price, shirt.getPrice()));
         //TODO: calculate width for the image depending on space available and screen size
         ImageDownloadManager.downloadImageIntoImageView(context, holder.ivPicture, shirt.getPicture(), imageSize, imageSize);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClicked(shirt);
+            }
+        });
     }
 
     @Override
@@ -59,5 +67,9 @@ public class ShirtListAdapter extends RecyclerView.Adapter<ShirtListAdapter.Shir
             tvProductName = (TextView) itemView.findViewById(R.id.tv_product_name);
             tvProductPrice = (TextView) itemView.findViewById(R.id.tv_product_price);
         }
+    }
+
+    public interface InteractionListener {
+        void onItemClicked(Shirt shirt);
     }
 }

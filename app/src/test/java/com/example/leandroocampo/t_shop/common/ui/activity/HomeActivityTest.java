@@ -5,17 +5,22 @@ import android.support.v7.widget.Toolbar;
 import com.example.leandroocampo.t_shop.BuildConfig;
 import com.example.leandroocampo.t_shop.R;
 import com.example.leandroocampo.t_shop.TShopTestApplication;
+import com.example.leandroocampo.t_shop.common.model.Shirt;
 import com.example.leandroocampo.t_shop.common.presenter.HomePresenter;
 import com.example.leandroocampo.t_shop.common.presenter.factory.HomePresenterFactory;
 import com.example.leandroocampo.t_shop.common.provider.ParamsProvider;
 import com.example.leandroocampo.t_shop.configuration.injection.DaggerPresenterFactoryTestComponent;
+import com.example.leandroocampo.t_shop.shop.presenter.DetailShirtPresenter;
 import com.example.leandroocampo.t_shop.shop.presenter.ListShirtPresenter;
+import com.example.leandroocampo.t_shop.shop.presenter.factory.DetailShirtPresenterFactory;
 import com.example.leandroocampo.t_shop.shop.presenter.factory.ListShirtPresenterFactory;
+import com.example.leandroocampo.t_shop.shop.ui.fragment.DetailShirtFragment;
 import com.example.leandroocampo.t_shop.shop.ui.fragment.ListShirtFragment;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
@@ -39,6 +44,8 @@ public class HomeActivityTest {
     HomePresenterFactory mockHomePresenterFactory;
     @Inject
     ListShirtPresenterFactory mockListShirtPresenterFactory;
+    @Inject
+    DetailShirtPresenterFactory mockDetailShirtPresenterFactory;
 
     private ActivityController<HomeActivity> controller;
     private HomePresenter mockHomePresenter;
@@ -69,6 +76,22 @@ public class HomeActivityTest {
         assertThat(subject.getSupportFragmentManager().findFragmentById(R.id.fragment_content)).isInstanceOf(ListShirtFragment.class);
         //noinspection ConstantConditions
         assertThat(subject.getSupportActionBar().getTitle()).isEqualTo("T-Shop");
+    }
+
+    @Test
+    public void onUpdateMainFragment_mainFragmentShouldBeUpdated() {
+        Shirt shirt = new Shirt();
+        shirt.setName("name");
+        shirt.setPrice(20);
+        shirt.setColour("blue");
+        shirt.setSize("m");
+        DetailShirtPresenter detailShirtPresenter = Mockito.mock(DetailShirtPresenter.class);
+        when(detailShirtPresenter.onShirtNeeded()).thenReturn(shirt);
+        when(mockDetailShirtPresenterFactory.create((ParamsProvider) any())).thenReturn(detailShirtPresenter);
+
+        subject = controller.create().start().resume().get();
+        subject.updateMainFragment(DetailShirtFragment.newInstance(shirt));
+        assertThat(subject.getSupportFragmentManager().findFragmentById(R.id.fragment_content)).isInstanceOf(DetailShirtFragment.class);
     }
 
     @Test

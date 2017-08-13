@@ -1,6 +1,7 @@
 package com.example.leandroocampo.t_shop.configuration.injection;
 
 import com.example.leandroocampo.t_shop.common.presenter.factory.HomePresenterFactory;
+import com.example.leandroocampo.t_shop.shop.presenter.factory.DetailShirtPresenterFactory;
 import com.example.leandroocampo.t_shop.shop.presenter.factory.ListShirtPresenterFactory;
 
 import org.mockito.Mockito;
@@ -24,5 +25,11 @@ public class PresenterFactoryTestModule {
     @Singleton
     ListShirtPresenterFactory provideListShirtPresenterFactory() {
         return Mockito.mock(ListShirtPresenterFactory.class);
+    }
+
+    @Provides
+    @Singleton
+    DetailShirtPresenterFactory provideDetailShirtPresenterFactory() {
+        return Mockito.mock(DetailShirtPresenterFactory.class);
     }
 }

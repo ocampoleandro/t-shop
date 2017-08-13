@@ -7,7 +7,7 @@ public abstract class BasePresenter<T> {
     //Activity or Fragment attached to Presenter
     protected T view;
 
-    protected BasePresenter(boolean inject) {
+    public BasePresenter(boolean inject) {
         if(inject) initInject();
     }
 

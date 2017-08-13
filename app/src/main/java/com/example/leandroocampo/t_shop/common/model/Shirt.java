@@ -12,6 +12,31 @@ public class Shirt extends BaseEntity {
     private String size;
     private String picture;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Shirt shirt = (Shirt) o;
+
+        if (price != shirt.price) return false;
+        if (!name.equals(shirt.name)) return false;
+        if (!colour.equals(shirt.colour)) return false;
+        if (!size.equals(shirt.size)) return false;
+        return picture.equals(shirt.picture);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (int) (price ^ (price >>> 32));
+        result = 31 * result + colour.hashCode();
+        result = 31 * result + size.hashCode();
+        result = 31 * result + picture.hashCode();
+        return result;
+    }
+
     public String getName() {
         return name;
     }

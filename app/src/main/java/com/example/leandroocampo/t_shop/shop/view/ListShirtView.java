@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface ListShirtView {
     void showShirts(List<Shirt> shirts);
+
     void showErrorFetchingList();
+
+    void openShirtDetailScreen(Shirt shirt);
 }

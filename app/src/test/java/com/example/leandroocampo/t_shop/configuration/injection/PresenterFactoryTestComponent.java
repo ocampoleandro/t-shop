@@ -1,6 +1,7 @@
 package com.example.leandroocampo.t_shop.configuration.injection;
 
 import com.example.leandroocampo.t_shop.common.ui.activity.HomeActivityTest;
+import com.example.leandroocampo.t_shop.shop.ui.fragment.DetailShirtFragmentTest;
 import com.example.leandroocampo.t_shop.shop.ui.fragment.ListShirtFragmentTest;
 
 import javax.inject.Singleton;
@@ -15,5 +16,7 @@ import dagger.Component;
 public interface PresenterFactoryTestComponent extends PresenterFactoryComponent {
     void inject(HomeActivityTest activity);
 
-    void inject(ListShirtFragmentTest fragment);
+    void inject(ListShirtFragmentTest fragmentTest);
+
+    void inject(DetailShirtFragmentTest fragmentTest);
 }

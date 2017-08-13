@@ -9,4 +9,11 @@
     <string name="list_shirt_error_fetching_shirts">Error fetching shirts</string>
     <string name="list_shirt_product_price">$%1$d</string>
     <!-- END ListShirtsFragment -->
+
+    <!-- DetailShirtFragment -->
+    <string name="detail_shirt_title_screen">Product Detail</string>
+    <string name="detail_shirt_product_price">$%1$d</string>
+    <string name="detail_shirt_colour_label">Colour</string>
+    <string name="detail_shirt_size_label">Size</string>
+    <!-- END DetailShirtFragment -->
 </resources>

@@ -1,6 +1,7 @@
 package com.example.leandroocampo.t_shop.configuration.injection;
 
 import com.example.leandroocampo.t_shop.common.presenter.factory.HomePresenterFactory;
+import com.example.leandroocampo.t_shop.shop.presenter.factory.DetailShirtPresenterFactory;
 import com.example.leandroocampo.t_shop.shop.presenter.factory.ListShirtPresenterFactory;
 
 import javax.inject.Singleton;
@@ -25,5 +26,11 @@ public class PresenterFactoryModule {
     @Singleton
     ListShirtPresenterFactory provideListShirtPresenterFactory() {
         return new ListShirtPresenterFactory();
+    }
+
+    @Provides
+    @Singleton
+    DetailShirtPresenterFactory provideDetailShirtPresenterFactory() {
+        return new DetailShirtPresenterFactory();
     }
 }
