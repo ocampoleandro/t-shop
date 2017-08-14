@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.leandroocampo.t_shop.R;
 import com.example.leandroocampo.t_shop.TShopApplication;
@@ -77,6 +79,14 @@ public class DetailShirtFragment extends BaseFragment<DetailShirtPresenter, Deta
         int imageSize = getContext().getResources().getDimensionPixelSize(R.dimen.detail_shirt_header_image_height);
         ImageDownloadManager.downloadImageIntoImageView(getContext(), ivProductPicture, shirt.getPicture(),
                 imageSize, imageSize);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_cart);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onShirtAddedToCart();
+            }
+        });
     }
 
     private void setToolbar(View view) {
@@ -119,5 +129,10 @@ public class DetailShirtFragment extends BaseFragment<DetailShirtPresenter, Deta
     @Override
     protected void initInject() {
         TShopApplication.getInstance().getInjector().getPresenterFactoryComponent().inject(this);
+    }
+
+    @Override
+    public void showNoEnoughStockMessage() {
+        Toast.makeText(getContext(), getString(R.string.detail_shirt_no_enough_stock), Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.leandroocampo.t_shop.shop.ui.fragment;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -22,11 +23,13 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowToast;
 
 import javax.inject.Inject;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
 
@@ -82,5 +85,20 @@ public class DetailShirtFragmentTest {
     public void onStart_shouldHaveNoTitle() {
         String title = ((AppCompatActivity) subject.getActivity()).getSupportActionBar().getTitle().toString();
         assertThat(title).isEqualTo("");
+    }
+
+    @Test
+    public void onFabAddCartClicked_onShirtAddedToCartShouldBeCalled() {
+        View view = subject.getView();
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_cart);
+
+        fab.performClick();
+        verify(mockDetailShirtPresenter).onShirtAddedToCart();
+    }
+
+    @Test
+    public void onShowNoEnoughStock_toastShouldBeShown() {
+        subject.showNoEnoughStockMessage();
+        assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("No enough stock");
     }
 }

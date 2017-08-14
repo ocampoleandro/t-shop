@@ -103,7 +103,7 @@ public class ListShirtFragmentTest {
     }
 
     @Test
-    public void onShowErrorFetchingList_ToastShouldBeShown() {
+    public void onShowErrorFetchingList_toastShouldBeShown() {
         subject.showErrorFetchingList();
         assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("Error fetching shirts");
     }

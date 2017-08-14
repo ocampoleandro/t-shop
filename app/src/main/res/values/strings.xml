@@ -15,5 +15,6 @@
     <string name="detail_shirt_product_price">$%1$d</string>
     <string name="detail_shirt_colour_label">Colour</string>
     <string name="detail_shirt_size_label">Size</string>
+    <string name="detail_shirt_no_enough_stock">No enough stock</string>
     <!-- END DetailShirtFragment -->
 </resources>

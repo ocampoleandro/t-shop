@@ -12,6 +12,19 @@ public class Shirt extends BaseEntity {
     private String size;
     private String picture;
 
+    public Shirt() {
+
+    }
+
+    public Shirt(String name, long price, String colour, int quantity, String size, String picture) {
+        this.name = name;
+        this.price = price;
+        this.colour = colour;
+        this.quantity = quantity;
+        this.size = size;
+        this.picture = picture;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
