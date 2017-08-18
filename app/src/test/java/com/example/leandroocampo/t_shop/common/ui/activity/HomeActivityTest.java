@@ -53,7 +53,7 @@ public class HomeActivityTest {
 
     @Before
     public void setup() {
-        ((DaggerPresenterFactoryTestComponent) ((TShopTestApplication) RuntimeEnvironment.application).getInjector().getPresenterFactoryComponent()).inject(this);
+        ((DaggerPresenterFactoryTestComponent) ((TShopTestApplication) RuntimeEnvironment.application).getPresenterFactoryComponent()).inject(this);
         mockHomePresenter = mock(HomePresenter.class);
         mockListShirtPresenter = mock(ListShirtPresenter.class);
 

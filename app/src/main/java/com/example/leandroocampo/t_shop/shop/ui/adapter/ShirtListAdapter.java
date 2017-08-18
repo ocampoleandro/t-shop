@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.leandroocampo.t_shop.R;
-import com.example.leandroocampo.t_shop.common.manager.ImageDownloadManager;
 import com.example.leandroocampo.t_shop.common.model.Shirt;
+import com.example.leandroocampo.t_shop.common.util.ImageDownloadUtil;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class ShirtListAdapter extends RecyclerView.Adapter<ShirtListAdapter.Shir
         holder.tvProductName.setText(shirt.getName());
         holder.tvProductPrice.setText(context.getString(R.string.list_shirt_product_price, shirt.getPrice()));
         //TODO: calculate width for the image depending on space available and screen size
-        ImageDownloadManager.downloadImageIntoImageView(context, holder.ivPicture, shirt.getPicture(), imageSize, imageSize);
+        ImageDownloadUtil.downloadImageIntoImageView(context, holder.ivPicture, shirt.getPicture(), imageSize, imageSize);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

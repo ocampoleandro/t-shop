@@ -15,12 +15,12 @@ import android.widget.Toast;
 
 import com.example.leandroocampo.t_shop.R;
 import com.example.leandroocampo.t_shop.TShopApplication;
-import com.example.leandroocampo.t_shop.common.manager.ImageDownloadManager;
 import com.example.leandroocampo.t_shop.common.model.Shirt;
 import com.example.leandroocampo.t_shop.common.presenter.factory.PresenterFactory;
 import com.example.leandroocampo.t_shop.common.ui.TitleChangeable;
 import com.example.leandroocampo.t_shop.common.ui.ToolbarChangeable;
 import com.example.leandroocampo.t_shop.common.ui.fragment.BaseFragment;
+import com.example.leandroocampo.t_shop.common.util.ImageDownloadUtil;
 import com.example.leandroocampo.t_shop.shop.presenter.DetailShirtPresenter;
 import com.example.leandroocampo.t_shop.shop.presenter.factory.DetailShirtPresenterFactory;
 import com.example.leandroocampo.t_shop.shop.view.DetailShirtView;
@@ -77,7 +77,7 @@ public class DetailShirtFragment extends BaseFragment<DetailShirtPresenter, Deta
         tvColour.setText(shirt.getColour());
         tvSize.setText(shirt.getSize());
         int imageSize = getContext().getResources().getDimensionPixelSize(R.dimen.detail_shirt_header_image_height);
-        ImageDownloadManager.downloadImageIntoImageView(getContext(), ivProductPicture, shirt.getPicture(),
+        ImageDownloadUtil.downloadImageIntoImageView(getContext(), ivProductPicture, shirt.getPicture(),
                 imageSize, imageSize);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_cart);
@@ -128,7 +128,7 @@ public class DetailShirtFragment extends BaseFragment<DetailShirtPresenter, Deta
 
     @Override
     protected void initInject() {
-        TShopApplication.getInstance().getInjector().getPresenterFactoryComponent().inject(this);
+        TShopApplication.getInstance().getPresenterFactoryComponent().inject(this);
     }
 
     @Override

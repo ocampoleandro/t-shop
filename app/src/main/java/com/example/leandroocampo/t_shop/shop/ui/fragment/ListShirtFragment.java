@@ -102,7 +102,7 @@ public class ListShirtFragment extends BaseFragment<ListShirtPresenter, ListShir
 
     @Override
     protected void initInject() {
-        TShopApplication.getInstance().getInjector().getPresenterFactoryComponent().inject(this);
+        TShopApplication.getInstance().getPresenterFactoryComponent().inject(this);
     }
 
     @Override

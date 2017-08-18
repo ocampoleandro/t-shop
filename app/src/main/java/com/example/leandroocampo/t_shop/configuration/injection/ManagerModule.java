@@ -1,5 +1,6 @@
 package com.example.leandroocampo.t_shop.configuration.injection;
 
+import com.example.leandroocampo.t_shop.common.model.cart.Cart;
 import com.example.leandroocampo.t_shop.common.model.cart.CartManager;
 
 import javax.inject.Singleton;
@@ -16,7 +17,13 @@ public class ManagerModule {
 
     @Provides
     @Singleton
-    CartManager provideCartManager() {
-        return new CartManager();
+    Cart provideCart() {
+        return new Cart();
+    }
+
+    @Provides
+    @Singleton
+    CartManager provideCartManager(Cart cart) {
+        return new CartManager(cart);
     }
 }

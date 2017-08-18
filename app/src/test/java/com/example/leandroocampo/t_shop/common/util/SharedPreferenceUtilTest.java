@@ -1,4 +1,4 @@
-package com.example.leandroocampo.t_shop.common.manager;
+package com.example.leandroocampo.t_shop.common.util;
 
 import com.example.leandroocampo.t_shop.BuildConfig;
 import com.example.leandroocampo.t_shop.TShopTestApplication;
@@ -13,13 +13,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, application = TShopTestApplication.class)
-public class SharedPreferenceManagerTest {
+public class SharedPreferenceUtilTest {
 
-    private SharedPreferenceManager subject;
+    private SharedPreferenceUtil subject;
 
     @Before
     public void setup() {
-        subject = new SharedPreferenceManager();
+        subject = new SharedPreferenceUtil();
     }
 
     @Test

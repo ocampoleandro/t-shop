@@ -4,13 +4,13 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.leandroocampo.t_shop.configuration.DependencyInjector;
-import com.example.leandroocampo.t_shop.configuration.Injector;
+import com.example.leandroocampo.t_shop.configuration.injection.DaggerPresenterFactoryComponent;
+import com.example.leandroocampo.t_shop.configuration.injection.PresenterFactoryComponent;
 
 public class TShopApplication extends Application {
 
     private static TShopApplication instance;
-    protected Injector injector;
+    protected PresenterFactoryComponent presenterFactoryComponent;
 
     public static TShopApplication getInstance() {
         return instance;
@@ -20,11 +20,11 @@ public class TShopApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        initializeInjector();
+        initInjectionComponent();
     }
 
-    protected void initializeInjector() {
-        injector = DependencyInjector.getInstance();
+    protected void initInjectionComponent() {
+        presenterFactoryComponent = DaggerPresenterFactoryComponent.create();
     }
 
     /**
@@ -36,7 +36,12 @@ public class TShopApplication extends Application {
         return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-    public Injector getInjector() {
-        return injector;
+    /**
+     * Return a {@link PresenterFactoryComponent} needed to inject dependencies
+     *
+     * @return a {@link PresenterFactoryComponent}
+     */
+    public PresenterFactoryComponent getPresenterFactoryComponent() {
+        return presenterFactoryComponent;
     }
 }

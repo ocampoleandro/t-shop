@@ -50,7 +50,7 @@ public class DetailShirtFragmentTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ((DaggerPresenterFactoryTestComponent) ((TShopTestApplication) RuntimeEnvironment.application).getInjector().getPresenterFactoryComponent()).inject(this);
+        ((DaggerPresenterFactoryTestComponent) ((TShopTestApplication) RuntimeEnvironment.application).getPresenterFactoryComponent()).inject(this);
 
         shirt = new Shirt();
         shirt.setName("name");
@@ -87,6 +87,7 @@ public class DetailShirtFragmentTest {
         assertThat(title).isEqualTo("");
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void onFabAddCartClicked_onShirtAddedToCartShouldBeCalled() {
         View view = subject.getView();

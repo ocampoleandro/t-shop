@@ -53,7 +53,7 @@ public class ListShirtFragmentTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ((DaggerPresenterFactoryTestComponent) ((TShopTestApplication) RuntimeEnvironment.application).getInjector().getPresenterFactoryComponent()).inject(this);
+        ((DaggerPresenterFactoryTestComponent) ((TShopTestApplication) RuntimeEnvironment.application).getPresenterFactoryComponent()).inject(this);
 
         when(mockListShirtPresenterFactory.create((ParamsProvider) any())).thenReturn(mockListShirtPresenter);
         subject = ListShirtFragment.newInstance();

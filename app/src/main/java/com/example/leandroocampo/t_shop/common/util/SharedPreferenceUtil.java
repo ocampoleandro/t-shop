@@ -1,4 +1,4 @@
-package com.example.leandroocampo.t_shop.common.manager;
+package com.example.leandroocampo.t_shop.common.util;
 
 import android.content.SharedPreferences;
 
@@ -8,11 +8,11 @@ import com.example.leandroocampo.t_shop.TShopApplication;
  * Manager to manipulate {@link android.content.SharedPreferences}.
  */
 
-public class SharedPreferenceManager {
+public class SharedPreferenceUtil {
 
     private SharedPreferences sharedPreferences;
 
-    public SharedPreferenceManager() {
+    public SharedPreferenceUtil() {
         sharedPreferences = TShopApplication.getInstance().getSharedPreferences();
     }
 

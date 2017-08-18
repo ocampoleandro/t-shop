@@ -7,10 +7,6 @@ public abstract class BasePresenter<T> {
     //Activity or Fragment attached to Presenter
     protected T view;
 
-    public BasePresenter(boolean inject) {
-        if(inject) initInject();
-    }
-
     public void onViewCreated(T view) {
         this.view = view;
     }
@@ -34,11 +30,6 @@ public abstract class BasePresenter<T> {
     public void onDestroyed() {
 
     }
-
-    /**
-     * Initialize dependency injection in the component
-     */
-    protected abstract void initInject();
 
     public void onSaveInstanceState(ParamsProvider bundleProvider) {
 

@@ -4,22 +4,18 @@ import com.example.leandroocampo.t_shop.common.model.Shirt;
 import com.example.leandroocampo.t_shop.common.model.cart.CartManager;
 import com.example.leandroocampo.t_shop.common.presenter.BasePresenter;
 import com.example.leandroocampo.t_shop.common.provider.ParamsProvider;
-import com.example.leandroocampo.t_shop.configuration.DependencyInjector;
 import com.example.leandroocampo.t_shop.shop.view.DetailShirtView;
-
-import javax.inject.Inject;
 
 public class DetailShirtPresenter extends BasePresenter<DetailShirtView> implements CartManager.Listener {
 
     public static final String SHIRT_PARAM = "SHIRT_PARAM";
 
-    @Inject
-    CartManager cartManager;
+    private CartManager cartManager;
 
     private Shirt shirt;
 
-    public DetailShirtPresenter(ParamsProvider bundleProvider) {
-        super(true);
+    public DetailShirtPresenter(CartManager cartManager, ParamsProvider bundleProvider) {
+        this.cartManager = cartManager;
         shirt = bundleProvider.getParcelable(SHIRT_PARAM);
     }
 
@@ -34,11 +30,6 @@ public class DetailShirtPresenter extends BasePresenter<DetailShirtView> impleme
 
     public void onShirtAddedToCart() {
         cartManager.addShirt(shirt, this);
-    }
-
-    @Override
-    protected void initInject() {
-        DependencyInjector.getInstance().getManagerComponent().inject(this);
     }
 
     @Override

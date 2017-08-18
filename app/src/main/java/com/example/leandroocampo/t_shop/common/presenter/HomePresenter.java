@@ -8,12 +8,4 @@ import com.example.leandroocampo.t_shop.common.view.HomeView;
 
 public class HomePresenter extends BasePresenter<HomeView> {
 
-    public HomePresenter() {
-        super(false);
-    }
-
-    @Override
-    protected void initInject() {
-
-    }
 }

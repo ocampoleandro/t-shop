@@ -1,5 +1,7 @@
 package com.example.leandroocampo.t_shop.configuration.injection;
 
+import com.example.leandroocampo.t_shop.common.dao.ShirtDAO;
+import com.example.leandroocampo.t_shop.common.model.cart.CartManager;
 import com.example.leandroocampo.t_shop.common.presenter.factory.HomePresenterFactory;
 import com.example.leandroocampo.t_shop.shop.presenter.factory.DetailShirtPresenterFactory;
 import com.example.leandroocampo.t_shop.shop.presenter.factory.ListShirtPresenterFactory;
@@ -13,7 +15,7 @@ import dagger.Provides;
  * Provides the components that create presenters.
  */
 @SuppressWarnings("WeakerAccess")
-@Module
+@Module(includes = {DAOModule.class, ManagerModule.class})
 public class PresenterFactoryModule {
 
     @Provides
@@ -24,13 +26,13 @@ public class PresenterFactoryModule {
 
     @Provides
     @Singleton
-    ListShirtPresenterFactory provideListShirtPresenterFactory() {
-        return new ListShirtPresenterFactory();
+    ListShirtPresenterFactory provideListShirtPresenterFactory(ShirtDAO shirtDAO) {
+        return new ListShirtPresenterFactory(shirtDAO);
     }
 
     @Provides
     @Singleton
-    DetailShirtPresenterFactory provideDetailShirtPresenterFactory() {
-        return new DetailShirtPresenterFactory();
+    DetailShirtPresenterFactory provideDetailShirtPresenterFactory(CartManager cartManager) {
+        return new DetailShirtPresenterFactory(cartManager);
     }
 }

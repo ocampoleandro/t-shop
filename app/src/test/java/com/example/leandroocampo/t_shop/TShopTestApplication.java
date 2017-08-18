@@ -1,15 +1,11 @@
 package com.example.leandroocampo.t_shop;
 
-import com.example.leandroocampo.t_shop.configuration.DependencyInjectorTest;
+import com.example.leandroocampo.t_shop.configuration.injection.DaggerPresenterFactoryTestComponent;
 
 public class TShopTestApplication extends TShopApplication {
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
-    protected void initializeInjector() {
-        injector = DependencyInjectorTest.getInstance();
+    protected void initInjectionComponent() {
+        presenterFactoryComponent = DaggerPresenterFactoryTestComponent.create();
     }
 }

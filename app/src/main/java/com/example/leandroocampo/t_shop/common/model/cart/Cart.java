@@ -10,24 +10,24 @@ import java.util.List;
  */
 public class Cart {
 
-    private static Cart instance;
-
     //shirts only accessed by CartManager
-    List<Shirt> persistentShirts;
+    private List<Shirt> persistentShirts;
 
-    private Cart() {
-        this.persistentShirts = new ArrayList<>();
+    public Cart() {
+        this.persistentShirts = new ArrayList<>(10);
     }
 
-    public static Cart getInstance() {
-        if (instance == null) {
-            synchronized (Cart.class) {
-                if (instance == null) {
-                    instance = new Cart();
-                }
-            }
+    void addShirt(Shirt shirt) {
+        persistentShirts.add(shirt);
+    }
+
+    Shirt getShirt(Shirt shirt) {
+        int index = persistentShirts.indexOf(shirt);
+        if (index != -1) {
+            return persistentShirts.get(index);
+        } else {
+            return null;
         }
-        return instance;
     }
 
     public List<Shirt> getShirts() {

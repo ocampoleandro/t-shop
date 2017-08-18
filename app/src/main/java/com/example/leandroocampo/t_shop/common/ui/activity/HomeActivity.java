@@ -104,7 +104,7 @@ public class HomeActivity extends BaseActivity<HomePresenter, HomeView>
 
     @Override
     protected void initInject() {
-        TShopApplication.getInstance().getInjector().getPresenterFactoryComponent().inject(this);
+        TShopApplication.getInstance().getPresenterFactoryComponent().inject(this);
     }
 
     @Override

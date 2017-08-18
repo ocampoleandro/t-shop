@@ -4,23 +4,31 @@ import com.example.leandroocampo.t_shop.common.model.Shirt;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class CartManagerTest {
 
     private CartManager subject;
 
+    @Mock
+    private Cart mockCart;
+
     @Before
     public void setup() {
-        subject = new CartManager();
+        MockitoAnnotations.initMocks(this);
+        subject = new CartManager(mockCart);
     }
 
     @Test
     public void onAddShirt_shouldAddShirtToCart() {
-        Cart.getInstance().clearShirts();
         Shirt shirt = new Shirt();
         shirt.setName("name");
         shirt.setPrice(20);
@@ -31,15 +39,11 @@ public class CartManagerTest {
         CartManager.Listener listener = Mockito.mock(CartManager.Listener.class);
 
         subject.addShirt(shirt, listener);
-        assertThat(Cart.getInstance().persistentShirts.contains(shirt)).isTrue();
-
-        int index = Cart.getInstance().getShirts().indexOf(shirt);
-        assertThat(Cart.getInstance().getShirts().get(index).getQuantity()).isEqualTo(1);
+        verify(mockCart, times(1)).addShirt(eq(shirt));
     }
 
     @Test
     public void onAddShirt_whenThereIsNoStock_outOfStockShouldBeCalled() {
-        Cart.getInstance().clearShirts();
         Shirt shirt = new Shirt();
         shirt.setName("name");
         shirt.setPrice(20);
@@ -51,12 +55,11 @@ public class CartManagerTest {
 
         subject.addShirt(shirt, listener);
         verify(listener).outOfStock();
-        assertThat(Cart.getInstance().getShirts().indexOf(shirt)).isEqualTo(-1);
+        verify(mockCart, never()).addShirt(eq(shirt));
     }
 
     @Test
     public void onAddShirt_whenExceedStock_outOfStockShouldBeCalled() {
-        Cart.getInstance().clearShirts();
         Shirt shirt = new Shirt();
         shirt.setName("name");
         shirt.setPrice(20);
@@ -66,11 +69,9 @@ public class CartManagerTest {
         shirt.setQuantity(1);
         CartManager.Listener listener = Mockito.mock(CartManager.Listener.class);
 
+        when(mockCart.getShirt(eq(shirt))).thenReturn(shirt);
         subject.addShirt(shirt, listener);
-        subject.addShirt(shirt, listener);
-        verify(listener).outOfStock();
 
-        int index = Cart.getInstance().getShirts().indexOf(shirt);
-        assertThat(Cart.getInstance().getShirts().get(index).getQuantity()).isEqualTo(1);
+        verify(listener).outOfStock();
     }
 }
