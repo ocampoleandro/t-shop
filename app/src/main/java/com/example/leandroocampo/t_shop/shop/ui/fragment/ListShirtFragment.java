@@ -34,6 +34,8 @@ import javax.inject.Inject;
 
 public class ListShirtFragment extends BaseFragment<ListShirtPresenter, ListShirtView> implements ListShirtView {
 
+    public static final String TAG = "ListShirtFragment";
+
     @Inject
     ListShirtPresenterFactory presenterFactory;
 
@@ -75,7 +77,7 @@ public class ListShirtFragment extends BaseFragment<ListShirtPresenter, ListShir
 
     private void setToolbar(View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((ToolbarChangeable) getActivity()).setToolbar(toolbar);
+        ((ToolbarChangeable) getActivity()).setToolbar(toolbar, false);
         ((TitleChangeable) getActivity()).setTitleToolbar(getContext().getString(R.string.app_name));
     }
 

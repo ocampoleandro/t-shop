@@ -1,15 +1,18 @@
 package com.example.leandroocampo.t_shop.common.ui.activity;
 
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
 
 import com.example.leandroocampo.t_shop.BuildConfig;
 import com.example.leandroocampo.t_shop.R;
 import com.example.leandroocampo.t_shop.TShopTestApplication;
+import com.example.leandroocampo.t_shop.cart.ui.fragment.CartFragment;
 import com.example.leandroocampo.t_shop.common.model.Shirt;
 import com.example.leandroocampo.t_shop.common.presenter.HomePresenter;
 import com.example.leandroocampo.t_shop.common.presenter.factory.HomePresenterFactory;
 import com.example.leandroocampo.t_shop.common.provider.ParamsProvider;
 import com.example.leandroocampo.t_shop.configuration.injection.DaggerPresenterFactoryTestComponent;
+import com.example.leandroocampo.t_shop.profile.ui.fragment.ProfileFragment;
 import com.example.leandroocampo.t_shop.shop.presenter.DetailShirtPresenter;
 import com.example.leandroocampo.t_shop.shop.presenter.ListShirtPresenter;
 import com.example.leandroocampo.t_shop.shop.presenter.factory.DetailShirtPresenterFactory;
@@ -91,23 +94,75 @@ public class HomeActivityTest {
 
         subject = controller.create().start().resume().get();
         subject.updateMainFragment(DetailShirtFragment.newInstance(shirt));
-        assertThat(subject.getSupportFragmentManager().findFragmentById(R.id.fragment_content)).isInstanceOf(DetailShirtFragment.class);
+        assertThat(subject.getSupportFragmentManager().findFragmentById(R.id.fragment_content))
+                .isInstanceOf(DetailShirtFragment.class);
     }
 
     @Test
     public void onSetToolbar_toolbarShouldBeInserted() {
         subject = controller.create().start().resume().get();
-        subject.setToolbar(null);
-        subject.setToolbar(new Toolbar(subject));
+        subject.setToolbar(null, false);
+        subject.setToolbar(new Toolbar(subject), false);
         assertThat(subject.getSupportActionBar()).isNotNull();
     }
 
     @Test
     public void onSetTitleToolbar_whenHasToolbar_toolbarShouldHaveTitle() {
         subject = controller.create().start().resume().get();
-        subject.setToolbar(new Toolbar(subject));
+        subject.setToolbar(new Toolbar(subject), false);
         subject.setTitleToolbar("Test");
         //noinspection ConstantConditions
         assertThat(subject.getSupportActionBar().getTitle()).isEqualTo("Test");
+    }
+
+    @Test
+    public void onBackPressed_whenInitialContentIsLoaded_finishShouldBeCalled() {
+        subject = controller.create().start().resume().get();
+        subject.onBackPressed();
+        assertThat(subject.isFinishing()).isTrue();
+    }
+
+    @Test
+    public void onBackPressed_whenFragmentHasBeenUpdated_shouldReturnToPrevFragment() {
+        subject = controller.create().start().resume().get();
+        subject.updateMainFragment(ProfileFragment.newInstance());
+        subject.onBackPressed();
+        assertThat(subject.getSupportFragmentManager().findFragmentById(R.id.fragment_content))
+                .isInstanceOf(ListShirtFragment.class);
+    }
+
+    @Test
+    public void onBackPressed_whenFragmentHasBeenUpdated_shouldSelectMenuOption() {
+        subject = controller.create().start().resume().get();
+        BottomNavigationView navigation = (BottomNavigationView) subject.findViewById(R.id.navigation);
+        subject.updateMainFragment(ProfileFragment.newInstance());
+        subject.updateMainFragment(CartFragment.newInstance());
+
+        subject.onBackPressed();
+        assertThat(navigation.getSelectedItemId()).isEqualTo(R.id.navigation_profile);
+
+        subject.onBackPressed();
+        assertThat(navigation.getSelectedItemId()).isEqualTo(R.id.navigation_shop);
+    }
+
+    @Test
+    public void onBackPressed_whenFragmentHasBeenUpdatedAndReturnedToOriginalFragment_finishShouldBeCalled() {
+        subject = controller.create().start().resume().get();
+        subject.updateMainFragment(ProfileFragment.newInstance());
+        subject.updateMainFragment(ListShirtFragment.newInstance());
+        subject.onBackPressed();
+        assertThat(subject.isFinishing()).isTrue();
+    }
+
+    @Test
+    public void onFragmentUpdated_backStackShouldBeUpdated() {
+        subject = controller.create().start().resume().get();
+        assertThat(subject.getSupportFragmentManager().getBackStackEntryCount()).isEqualTo(1);
+
+        subject.updateMainFragment(ProfileFragment.newInstance());
+        assertThat(subject.getSupportFragmentManager().getBackStackEntryCount()).isEqualTo(2);
+
+        subject.updateMainFragment(CartFragment.newInstance());
+        assertThat(subject.getSupportFragmentManager().getBackStackEntryCount()).isEqualTo(3);
     }
 }

@@ -37,6 +37,7 @@ import javax.inject.Inject;
 public class DetailShirtFragment extends BaseFragment<DetailShirtPresenter, DetailShirtView>
         implements DetailShirtView {
 
+    public static final String TAG = "DetailShirtFragment";
     public static final String SHIRT_PARAM = DetailShirtPresenter.SHIRT_PARAM;
 
     @Inject
@@ -91,7 +92,7 @@ public class DetailShirtFragment extends BaseFragment<DetailShirtPresenter, Deta
 
     private void setToolbar(View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((ToolbarChangeable) getActivity()).setToolbar(toolbar);
+        ((ToolbarChangeable) getActivity()).setToolbar(toolbar, true);
         AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int scrollRange = -1;

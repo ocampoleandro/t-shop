@@ -27,7 +27,7 @@ public class GeneralActivity extends AppCompatActivity
     }
 
     @Override
-    public void setToolbar(Toolbar toolbar) {
+    public void setToolbar(Toolbar toolbar, boolean addBackButton) {
         setSupportActionBar(toolbar);
     }
 

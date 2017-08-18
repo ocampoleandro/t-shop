@@ -8,6 +8,6 @@ import android.support.v7.widget.Toolbar;
 
 public interface ToolbarChangeable {
 
-    void setToolbar(Toolbar toolbar);
+    void setToolbar(Toolbar toolbar, boolean addBackButton);
 
 }

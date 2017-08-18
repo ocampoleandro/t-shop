@@ -16,5 +16,8 @@
     <string name="detail_shirt_colour_label">Colour</string>
     <string name="detail_shirt_size_label">Size</string>
     <string name="detail_shirt_no_enough_stock">No enough stock</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- END DetailShirtFragment -->
 </resources>
